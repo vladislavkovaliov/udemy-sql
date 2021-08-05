@@ -48,13 +48,55 @@ FROM DUAL;/* 11 */
 SELECT  FIRST_NAME
        ,SALARY "Old Salary"
        ,SALARY + TO_NUMBER('$12,345.55' /*expr */,'$99,999.99' /*fmt*/) "New Salary"
-FROM EMPLOYEES;/* 12 */
-
-SELECT  *
-FROM EMPLOYEES;/* 13 */
+FROM EMPLOY EES;/* 12 */
 
 SELECT  FIRST_NAME
        ,HIRE_DATE
        ,TO_DATE('SEP,18:45:00 18 2009','MON,HH24:MI:SS DD YYYY') "Incomming date"
        ,MONTHS_BETWEEN(TO_DATE('SEP,18:45:00 18 2009','MON,HH24:MI:SS DD YYYY') /*date1 DATE*/,HIRE_DATE /*date1 DATE*/)
-FROM EMPLOYEES;
+FROM EMPLOYEES;/* 13 */
+
+SELECT  FIRST_NAME
+       ,LAST_NAME
+       ,SALARY
+       ,TO_CHAR(SALARY + SALARY * NVL(COMMISSION_PCT /*expr1*/,0 /*expr1*/) /*n*/,'$99,999.99' /*fmt*/)
+FROM EMPLOYEES;/* 14 */
+
+SELECT  FIRST_NAME "First name"
+       ,LAST_NAME "Last name"
+       ,NVL2(NULLIF(LENGTH(FIRST_NAME),LENGTH(LAST_NAME)) /*expr1*/,'the same length' /*expr2*/,'the different length' /*expr3*/) "Equal"
+FROM EMPLOYEES;/* 15 */
+
+SELECT  FIRST_NAME "First name"
+       ,NVL(COMMISSION_PCT /*expr1*/,0 /*expr1*/) "Commission"
+       ,NVL2(COMMISSION_PCT /*expr1*/,'Yes' /*expr2*/,'No' /*expr3*/)
+FROM EMPLOYEES;/* 16 */
+
+SELECT  FIRST_NAME "First name"
+       ,COALESCE(COMMISSION_PCT /*expr*/,MANAGER_ID /*expr*/,SALARY /*expr*/) "Info"
+FROM EMPLOYEES;/* 17 */
+
+SELECT  FIRST_NAME "First name"
+       ,SALARY "Salary"
+       ,CASE WHEN SALARY < 5000 THEN 'Low'
+             WHEN (SALARY > 5000 OR SALARY = 5000) AND SALARY < 10000 THEN 'Normal'
+             WHEN SALARY > 10000 OR SALARY = 10000 THEN 'High' END "Salary Level"
+FROM EMPLOYEES;/* 18 */
+
+SELECT  REGION_ID "Region Id"
+       ,DECODE(REGION_ID /*expr*/,1 /*search*/,'Europe' /*result*/,2 /*search,result*/,'America' /*search,result*/,3 /*search,result*/,'Asia' /*search,result*/,4 /*search,result*/,'Africa' /*search,result*/) "Region Name"
+FROM COUNTRIES;/* 19 */
+
+SELECT  REGION_ID "Region Id"
+       ,CASE WHEN REGION_ID = 1 THEN 'Europe'
+             WHEN REGION_ID = 2 THEN 'America'
+             WHEN REGION_ID = 3 THEN 'Asia'
+             WHEN REGION_ID = 4 THEN 'Africa' END "Region Name"
+FROM COUNTRIES;
+
+SELECT  FIRST_NAME "First Name"
+       ,SALARY "Salary"
+       ,CASE WHEN SALARY < 10000 AND COMMISSION_PCT is NULL THEN 'BAD'
+             WHEN SALARY BETWEEN 10000 AND 15000 THEN 'NORMAL'
+             WHEN SALARY > 15000 Or SALARY = 15000 THEN 'GOOD' END "Condition"
+FROM EMPLOYEES;/* 20 */
