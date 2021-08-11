@@ -37,7 +37,7 @@ GROUP BY  REGION_ID
 HAVING SUM(LENGTH(COUNTRY_NAME /*ch CHAR*/)) > 50;/* 6 */
 
 SELECT  JOB_ID "Job id"
-       ,AVG(SALARY) "avg salary"
+       ,ROUND(AVG(SALARY)) "avg salary"
 FROM EMPLOYEES
 GROUP BY  JOB_ID;/* 7 */
 
