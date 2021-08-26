@@ -186,7 +186,7 @@ WHERE
 
 /**
  * Output names of employee, country name 
- * and info about employee and county which about no info.
+ * and info about employee and county which have no info.
  */
 SELECT
 	DISTINCT e.FIRST_NAME "First name",
