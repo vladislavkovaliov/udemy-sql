@@ -1,0 +1,33 @@
+CREATE TABLE friends AS
+SELECT
+	employee_id id,
+	first_name name,
+	last_name surname
+FROM
+	EMPLOYEES e
+WHERE
+	COMMISSION_PCT IS NOT NULL;
+
+SELECT
+	*
+FROM
+	friends;
+
+ALTER TABLE friends ADD(email VARCHAR2(25));
+
+SELECT
+	*
+FROM
+	FRIENDS ;
+
+ALTER TABLE FRIENDS DROP COLUMN email;
+
+ALTER TABLE friends ADD(email VARCHAR2(25) DEFAULT 'no email');
+
+ALTER TABLE FRIENDS READ ONLY;
+
+TRUNCATE
+	TABLE FRIENDS ;
+
+DROP TABLE FRIENDS ;
+
